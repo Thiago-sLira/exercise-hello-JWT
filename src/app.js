@@ -5,6 +5,7 @@ const { PORT } = process.env;
 
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
+const routes = require('./routes');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(
 );
 
 app.get('/ping', controllers.ping);
+
+app.use(routes);
 
 app.use(middlewares.error);
 
