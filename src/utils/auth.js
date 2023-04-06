@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 const jwt = require('jsonwebtoken');
 
-const secretKey = process.env.SECRET_KEY;
+const { JWT_SECRET } = process.env;
 
 const configJWT = {
     expiresIn: '10d',
@@ -9,19 +9,19 @@ const configJWT = {
 };
 
 const generateToken = (payload) => {
-    const token = jwt.sign(payload, secretKey, configJWT);
+    const token = jwt.sign(payload, JWT_SECRET, configJWT);
     return token;
 };
 
 const validateToken = (token) => {
     if (!token) throw { message: 'Falta o token' };
-    const isValid = jwt.verify(token, secretKey);
+    const isValid = jwt.verify(token, JWT_SECRET);
     return isValid;
 };
 
 const decodeToken = (token) => {
     if (!token) throw { message: 'Falta o token' };
-    const decoded = jwt.decode(token, secretKey);
+    const decoded = jwt.decode(token, JWT_SECRET);
     return decoded;
 };
 
